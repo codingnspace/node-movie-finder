@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title Find Cool Movies
+    link(rel='stylesheet', type='text/css', href='/css/style.css')
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:300', rel='stylesheet', type='text/css')
+  body
+    .container
+      fieldset
+        form(action='/', method='post')
+          input.search(name='keyword', type='text', placeholder='Search by keyword...', required='')
+          input.ghost-button(type='submit', value='Find Movies')
+        if movies
+          div
+            each val, index in movies
+              h2= 'Title: ' + val.Title
+              h3= 'Year: ' + val.Year
+              img(src=val.Poster)
+              hr
+        if error
+          p= error

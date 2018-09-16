@@ -2,13 +2,34 @@ var express = require('express');
 var app = express();
 var fs = require('fs');
 var path = require('path');
+const request = require('request');
 var bodyParser = require('body-parser');
+require('dotenv').config();
 
-app.use(express.static(path.join(__dirname, '/public')));
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 
-app.use('/', express.static(path.join(__dirname, 'public')));
+// app.use('/', express.static(path.join(__dirname, 'public')));
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
+
+// app.use(express.static(path.join(__dirname, "public")));
+app.get('/', function (req, res) {
+  res.render('index');
+});
+
+app.post('/', function (req, res) {
+  var searchKeywords = req.body.keyword;
+  var url = `http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&s=${searchKeywords}`;
+  request(url, function (err, response, body) {
+      if(err){
+        res.render('index', {movies: null, error: 'Error, please try again'});
+      } else {
+        var movies = JSON.parse(body);
+          res.render('index', {movies: movies.Search, error: null});
+      }
+  });
+})
 
 app.get('/favorites', function(req, res){
   var data = fs.readFileSync('./data.json');
