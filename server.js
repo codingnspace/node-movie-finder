@@ -74,6 +74,8 @@ app.get('/movie/:id', function(req, res){
   });
 })
 
-app.listen(process.env.PORT || 3000, function(){
+var port = process.env.PORT || 3000;
+var host = '0.0.0.0';
+app.listen(port, host, function(){
   console.log("Listening on port 3000");
 });
