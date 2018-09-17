@@ -9,11 +9,10 @@ require('dotenv').config();
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 
-app.use('/', express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, "public")));
-
+// app.use('/', express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static('public'))
 app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views"));
 
 app.get('/', function (req, res) {
   res.render('index');
