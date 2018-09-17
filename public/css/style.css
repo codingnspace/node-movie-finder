@@ -1,3 +1,36 @@
-input {
+fieldset {
     border: none;
+}
+
+input.favorites {
+    background-color: darksalmon;
+    border-color: darksalmon;
+    color: white;
+    cursor: pointer;
+    display: block;
+    height: 2.3em;
+}
+
+input.search {
+    border: none;
+    border-bottom: 1px solid black;
+    padding: .5em;
+    width: 90%;
+}
+
+input.search-button {
+    width: 9%;
+    background-color: darksalmon;
+    color: white;
+    border: 1px solid darksalmon;
+    height: 2.3em;
+}
+
+a {
+    color: darksalmon;
+    text-decoration: none;
+}
+
+.container {
+    padding: 1em;
 }

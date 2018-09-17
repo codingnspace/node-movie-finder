@@ -4,19 +4,20 @@ html
     meta(charset='utf-8')
     title Find Cool Movies
     link(rel='stylesheet', type='text/css', href='/css/style.css')
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans:300', rel='stylesheet', type='text/css')
   body
     .container
       fieldset
         form(action='/', method='post')
           input.search(name='keyword', type='text', placeholder='Search by keyword...', required='')
-          input.ghost-button(type='submit', value='Find Movies')
+          input.search-button(type='submit', value='Find Movies')
         if movies
-          div
-            each val, index in movies
-              h2= 'Title: ' + val.Title
-              h3= 'Year: ' + val.Year
+          each val in movies
+            form(action=`/favorites`, method="post")
+              a(href=`/movie/${val.imdbID}`)
+                h2=val.Title
+              input(name='movie_id', type='hidden', value=val.imdbID)
               img(src=val.Poster)
+              input.favorites(type='submit', value='Add to Favorites')
               hr
         if error
-          p= error
+          p=error
