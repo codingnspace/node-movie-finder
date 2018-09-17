@@ -1,17 +1,13 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
-var path = require('path');
 const request = require('request');
 var bodyParser = require('body-parser');
 require('dotenv').config();
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
-
-// app.use('/', express.static(path.join(__dirname, 'public')));
-// app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static('public'))
+app.set('views', __dirname + '/views')
 app.set("view engine", "pug");
 
 app.get('/', function (req, res) {
@@ -73,6 +69,7 @@ app.get('/movie/:id', function(req, res){
   });
 })
 
+app.use(express.static('public'))
 var port = process.env.PORT || 3000;
 var host = '0.0.0.0';
 app.listen(port, host, function(){
